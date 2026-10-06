@@ -1,0 +1,34 @@
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/
+docs/build/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Generated simulation data
+*.jld2
+*.mp4
+*.gif
+revision_sims/results/
+revision_sims/logs/
+slurm-*.out
+slurm-*.err
+*.log
+
+# Generated plots; compact reviewed outputs in results/paper are versioned
+generated_figures/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+

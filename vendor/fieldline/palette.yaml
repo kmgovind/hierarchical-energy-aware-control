@@ -1,0 +1,140 @@
+# Fieldline — a color & type system for scientific figures
+#
+# This file is the single source of truth. Every other file in this repo
+# (Julia themes, Inkscape/GIMP palettes, CSS tokens, swatch previews) is
+# generated FROM this file by scripts/generate.py — never edit those
+# derived files by hand, edit this one and regenerate.
+#
+# Design goals:
+#   - Colorblind-safe under deuteranopia/protanopia/tritanopia
+#   - Print-safe (no colors that collapse or oversaturate in CMYK)
+#   - Works on both a warm paper-white background (papers) and a dark
+#     background (slide decks / talks), without redefining hues
+#   - Categorical palette follows Okabe & Ito's Color Universal Design
+#     recommendations (the closest thing the field has to a colorblind
+#     safety standard), with lightness tuned for print contrast
+
+meta:
+  name: fieldline
+  version: "1.0.0"
+  description: >
+    Color and typography system for optimal control / stochastic systems
+    research: categorical comparisons (architectures, methods, agents),
+    sequential fields (value functions, densities), and diverging fields
+    (errors, residuals) for Julia plots, Inkscape/Glaxnimate vector work,
+    and papers.
+
+# ---------------------------------------------------------------------------
+# Categorical / qualitative palette — for distinguishing named series
+# (e.g. PINN vs Deep BSDE vs ADP vs NVI). Ordered: use in this order for
+# best colorblind separation as you add series. 8 colors is the practical
+# ceiling for reliable discrimination — beyond that, use linestyle/marker
+# too.
+# ---------------------------------------------------------------------------
+categorical:
+  order: [cobalt, vermilion, emerald, amber, orchid, sky, citrine, ink]
+  colors:
+    cobalt:    { hex: "#0072B2", role: "primary series / baseline method" }
+    vermilion: { hex: "#D55E00", role: "contrast series / secondary method" }
+    emerald:   { hex: "#009E73", role: "tertiary series" }
+    amber:     { hex: "#E69F00", role: "quaternary series" }
+    orchid:    { hex: "#CC79A7", role: "fifth series" }
+    sky:       { hex: "#56B4E9", role: "sixth series (light accent)" }
+    citrine:   { hex: "#E6D62E", role: "seventh series (use sparingly, low contrast on white)" }
+    ink:       { hex: "#2B2B2B", role: "reference line / ground truth / analytic solution" }
+
+# ---------------------------------------------------------------------------
+# Sequential — a single-hue brand ramp for simple one-variable heatmaps,
+# bar shading, density plots, etc. For rigorous perceptually-uniform
+# scientific colormaps (PDE/value-function surfaces where perceptual
+# uniformity actually matters for interpretation), use an established
+# vetted map instead of a hand-built one — see notes.sequential_scientific.
+# ---------------------------------------------------------------------------
+sequential:
+  field_blue:
+    stops:
+      - { at: 0.0, hex: "#FBFAF7" }
+      - { at: 0.2, hex: "#BFE1F2" }
+      - { at: 0.4, hex: "#6FB8DE" }
+      - { at: 0.6, hex: "#2D8FC4" }
+      - { at: 0.8, hex: "#0F5F91" }
+      - { at: 1.0, hex: "#0A3A5C" }
+  notes:
+    sequential_scientific: >
+      For value functions / PDE solution surfaces, use Fieldline.sequential(
+      scientific = true ) in Julia, which defaults to cividis: its
+      blue -> gray -> yellow path echoes cobalt/amber/citrine and never
+      passes through green, so it won't be confused with the emerald
+      categorical color when both appear in one figure. Pass
+      scheme = :batlow instead for standalone panels with no categorical
+      overlay, where batlow's longer blue -> green -> olive -> tan ramp
+      can aid reading fine gradients — but avoid batlow when emerald is
+      also on the plot. field_blue above is for lightweight brand-
+      consistent use where perceptual uniformity isn't the point (e.g. a
+      shaded bar, a simple density).
+
+# ---------------------------------------------------------------------------
+# Diverging — for signed quantities centered at zero: residuals, errors,
+# advantage functions, policy differences. Symmetric around a neutral
+# paper tone (not pure white) so zero doesn't blow out on screen or print.
+# ---------------------------------------------------------------------------
+diverging:
+  cobalt_vermilion:
+    stops:
+      - { at: -1.0,  hex: "#0A3A5C" }
+      - { at: -0.5,  hex: "#0072B2" }
+      - { at: -0.15, hex: "#8FC1DE" }
+      - { at:  0.0,  hex: "#FBFAF7" }
+      - { at:  0.15, hex: "#F2C08F" }
+      - { at:  0.5,  hex: "#D55E00" }
+      - { at:  1.0,  hex: "#8C3D00" }
+
+# ---------------------------------------------------------------------------
+# Neutrals — backgrounds, gridlines, text, axes. Two modes: light (paper,
+# default for figures/publications) and dark (slides/talks). Hues are
+# shared; only lightness inverts.
+# ---------------------------------------------------------------------------
+neutral:
+  light:
+    background: "#FBFAF7"   # warm paper white, not pure #FFFFFF
+    panel:      "#F3F1EC"
+    grid:       "#D8D6CF"
+    axis:       "#8A8B85"
+    text:       "#1C1C1E"
+    text_muted: "#55565A"
+  dark:
+    background: "#14161A"
+    panel:      "#1C1F24"
+    grid:       "#33363B"
+    axis:       "#7A7D82"
+    text:       "#F2F1ED"
+    text_muted: "#A6A8AC"
+
+# ---------------------------------------------------------------------------
+# Typography — pairs a technical sans (figures, labels, UI) with a serif
+# that matches common journal LaTeX bodies, plus a mono for code/values.
+# All three are open-license and freely embeddable in SVG/PDF exports.
+# ---------------------------------------------------------------------------
+typography:
+  sans:
+    family: "IBM Plex Sans"
+    use: "axis labels, titles, legends, figure text"
+    fallback: "Helvetica, Arial, sans-serif"
+  serif:
+    family: "STIX Two Text"
+    use: "body text / matches most journal LaTeX (stix / newtx) fonts"
+    fallback: "Georgia, 'Times New Roman', serif"
+  mono:
+    family: "IBM Plex Mono"
+    use: "code, tick values, tables"
+    fallback: "'Courier New', monospace"
+
+# ---------------------------------------------------------------------------
+# Line/marker weights — kept here too so plots are consistent across tools.
+# ---------------------------------------------------------------------------
+strokes:
+  line_width_pt: 1.4
+  line_width_emphasis_pt: 2.0
+  marker_size_pt: 5.0
+  grid_width_pt: 0.5
+  axis_width_pt: 1.0

@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated paper and this repository."
+title: "Adaptive Ocean Exploration Simulations"
+type: software
+version: 1.0.0
+date-released: 2026-10-06
+repository-code: "https://github.com/dasc-lab/adaptive-ocean-exploration-sim"
+authors:
+  - family-names: Govindarajan
+    given-names: Kavin M.
+  - family-names: Naveed
+    given-names: Kaleb Ben
+  - family-names: Li
+    given-names: David
+  - family-names: Agrawal
+    given-names: Devansh R.
+  - family-names: Maceda
+    given-names: Mary
+  - family-names: Bryant
+    given-names: Matthew
+  - family-names: Panagou
+    given-names: Dimitra
+  - family-names: Vermillion
+    given-names: Chris
+preferred-citation:
+  type: article
+  title: "Clarity-Driven Adaptive Mission Planning for a Solar-Powered Autonomous Surface Vessel"
+  journal: "IEEE Transactions on Control Systems Technology"
+  year: 2026
+  authors:
+    - family-names: Govindarajan
+      given-names: Kavin M.
+    - family-names: Naveed
+      given-names: Kaleb Ben
+    - family-names: Li
+      given-names: David
+    - family-names: Agrawal
+      given-names: Devansh R.
+    - family-names: Maceda
+      given-names: Mary
+    - family-names: Bryant
+      given-names: Matthew
+    - family-names: Panagou
+      given-names: Dimitra
+    - family-names: Vermillion
+      given-names: Chris
+
